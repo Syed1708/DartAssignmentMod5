@@ -1,0 +1,129 @@
+
+
+
+// Create a abstract class name Role
+abstract class Role {
+  void displayRole();
+}
+
+// B. Create a class Person
+class Person implements Role {
+
+  String name;
+  int age;
+  String address;
+  Role role;
+
+  //create a  Constructor
+  Person(this.name, this.age, this.address, this.role);
+
+  // Implement the Role interface
+  @override
+  void displayRole() {
+    role.displayRole();
+  }
+}
+
+// C. Create a class Student that extends Person:
+
+class Student extends Person{
+
+String studentID;
+String grade;
+List<int> courseScores;
+
+//create a  Constructor as Student
+
+  Student(String name, int age, String address, Role role, this.studentID, this.grade, this.courseScores)
+      : super(name, age, address, role);
+
+
+
+  // Override the displayRole() method
+  @override
+  void displayRole() {
+    print("Role: Student");
+  }
+// calculate the average score of courses
+double calculateAverageScore() {
+double totalScore = courseScores.reduce((a, b) => a + b).toDouble();
+int numberOfCourses = courseScores.length;
+return numberOfCourses > 0 ? totalScore / numberOfCourses : 0;
+
+
+}
+
+
+}
+
+// D. Create another class Teacher
+class Teacher extends Person {
+// Additional attributes
+String teacherID;
+List<String> coursesTaught;
+
+// Constructor
+Teacher(String name, int age, String address, Role role, this.teacherID, this.coursesTaught)
+    : super(name, age, address, role);
+
+// Override the displayRole() method
+@override
+void displayRole() {
+print("Role: Teacher");
+}
+
+// Method to display the courses taught by the teacher
+void displayCoursesTaught() {
+print("Courses Taught:");
+coursesTaught.forEach((course) => print("- $course"));
+}
+}
+
+// E. StudentManagementSystem
+
+void main() {
+
+
+// Create instances of Student
+Student student = Student("John Doe", 20, "123 Main St", StudentRole(), "S123", "Grade A", [90, 85, 82]);
+
+
+// Display  information of  Student
+print("\nStudent Information:");
+// Display role information
+student.displayRole();
+
+print("Name: ${student.name}");
+print("Age: ${student.age}");
+print("Address: ${student.address}");
+print("Average Score: ${student.calculateAverageScore().toStringAsFixed(1)}");
+
+//Teacher obj instance
+Teacher teacher = Teacher("Mrs. Smith", 35, "456 Oak St", TeacherRole(), "T456", ["Math", "English", "Bangla"]);
+
+
+print("\nTeacher Information:");
+//display role
+teacher.displayRole();
+print("Name: ${teacher.name}");
+print("Age: ${teacher.age}");
+print("Address: ${teacher.address}");
+teacher.displayCoursesTaught();
+}
+
+// Implement StudentRole
+class StudentRole implements Role {
+@override
+void displayRole() {
+print("Role: Student");
+}
+}
+
+//TeacherRole
+
+class TeacherRole implements Role {
+@override
+void displayRole() {
+print("Role: Teacher");
+}
+}
